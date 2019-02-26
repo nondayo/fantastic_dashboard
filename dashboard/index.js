@@ -113,8 +113,23 @@ async function drawMonth() {
     plot(postData);
     console.log(typeof postData);
 };
-drawMonth();
-document.getElementById("monthButton").addEventListener('click', drawMonth);
+
+// 寫法 1
+drawMonth().catch(err => {
+    // show error
+});
+
+// document.getElementById("monthButton").addEventListener('click', drawMonth);
+$('#monthButton').on('click', async event => {
+    // 寫法 2
+    try {
+        await drawMonth();
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
 document.getElementById("weekButton").addEventListener('click', drawWeek);
 
 // try {
