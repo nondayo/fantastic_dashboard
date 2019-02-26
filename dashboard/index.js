@@ -104,27 +104,21 @@ async function doAjaxMonth(args) {
 }
 
 async function drawWeek() {
-    let postData = await doAjaxweek();
+    let postData = await doAjaxweek().catch(err => {
+        $('#myError').modal("show")
+    });
     plot(postData);
 };
 
 async function drawMonth() {
-    let postData = await doAjaxMonth();
+    let postData = await doAjaxMonth().catch(err => {
+        $('#myError').modal("show")
+    });
     plot(postData);
-    console.log(typeof postData);
 };
 drawMonth();
 document.getElementById("monthButton").addEventListener('click', drawMonth);
 document.getElementById("weekButton").addEventListener('click', drawWeek);
-
-// try {
-//     await drawMonth();
-//     await document.getElementById("monthButton").addEventListener('click', drawMonth);
-//     await document.getElementById("weekButton").addEventListener('click', drawWeek);
-// } catch (error) {
-//     throw new Error(400);
-//     // alert("Hello\nHow are you?");
-// }
 
 function plot(dat) {
     let linechart = document.getElementById("myChart").getContext('2d');
