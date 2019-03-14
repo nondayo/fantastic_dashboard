@@ -1,6 +1,7 @@
 # plumber.R
 library(magrittr)
 library(jsonlite)
+load("geojson_data.rda")
 
 #* @filter cors
 cors <- function(res) {
@@ -31,6 +32,21 @@ function(size=""){
       data = data.frame(x = x, y = y)
     ) %>% 
     toJSON()
+  },
+  error = function(e) {
+    list(
+      error = 1,
+      msg = conditionMessage(e)
+    )
+  })
+}
+
+#* Echo an geojson
+#* @get /mapdata
+
+function(){
+  tryCatch({
+    return('{"type": "FeatureCollection", "features": [{"geometry": {"type": "Point","coordinates": [-104.9998, 39.7471]},"type": "Feature","properties": {"popupContent": "pop1"},"id": 51}, {"geometry": {"type": "Point","coordinates": [-104.9984, 39.7503]},"type": "Feature","properties": {"popupContent": "pop2"},"id": 52}]}') 
   },
   error = function(e) {
     list(
