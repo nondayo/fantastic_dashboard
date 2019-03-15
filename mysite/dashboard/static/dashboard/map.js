@@ -34,9 +34,11 @@ async function getMapdata() {
     let mapData = await doAjaxmap().catch(err => {
         $('#myError').modal("show");
     });
-    console.log(mapData);
-    data = JSON.parse(mapData[0])
-    console.log(data);
+    // console.log(mapData);
+    data = mapData;
+    // console.log(mapData[0]);
+    // data = JSON.parse(mapData[0])
+    // console.log(data);
 
     L.geoJSON([data], {
         style: function (feature) {
